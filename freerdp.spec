@@ -3,7 +3,7 @@
 Summary:	A free remote desktop protocol client
 Name:		freerdp
 Version:	1.0.2
-Release:	6
+Release:	6.1
 License:	Apache License
 Group:		Networking/Remote access
 Url:		http://freerdp.sourceforge.net/
@@ -145,6 +145,7 @@ Shared library for %{name}.
 Summary:	Shared library for %{name}
 Group:		System/Libraries
 Conflicts:	%{_lib}freerdp1 < 1.0.2
+Obsoletes:	%{mklibname freerdp 1} < 1.0.2
 
 %description -n %{libutils}
 Shared library for %{name}.
