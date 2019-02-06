@@ -155,8 +155,7 @@ find %{buildroot} -name '*.la' -delete
 find %{buildroot} -name '*.a' -delete
 
 %files
-%doc ChangeLog README
-%license LICENSE
+%doc ChangeLog README LICENSE
 %{_bindir}/*
 %{_libdir}/%{name}2/
 %{_mandir}/man1/xfreerdp.1.*
