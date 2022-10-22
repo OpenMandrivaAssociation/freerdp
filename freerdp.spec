@@ -19,13 +19,13 @@
 # https://github.com/FreeRDP/FreeRDP/issues/4348
 %bcond_with	gss
 
-# disable packages in restricet repo
+# disable packages in restricted repo
 %bcond_with	faac
 %bcond_with	faad
 %bcond_with	x264
 
 Name:		freerdp
-Version:	2.8.0
+Version:	2.8.1
 Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
