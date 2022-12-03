@@ -19,14 +19,18 @@
 # https://github.com/FreeRDP/FreeRDP/issues/4348
 %bcond_with	gss
 
+# Use only one of this
+%bcond_with	mbedtls
+%bcond_without	openssl
+
 # disable packages in restricted repo
 %bcond_with	faac
 %bcond_with	faad
 %bcond_with	x264
 
 Name:		freerdp
-Version:	2.8.1
-Release:	2
+Version:	2.9.0
+Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
@@ -34,6 +38,7 @@ Url:		http://www.freerdp.com/
 Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
 #Patch0:		openssl3.patch
 BuildRequires:	cmake
+BuildRequires:	ninja
 BuildRequires:	docbook-style-xsl
 BuildRequires:	xmlto
 BuildRequires:	cups-devel
@@ -43,7 +48,9 @@ BuildRequires:	faac-devel
 BuildRequires:	ffmpeg-devel
 BuildRequires:	gsm-devel
 BuildRequires:	lame-devel
+%if %{with mbedtls}
 BuildRequires:	mbedtls-devel
+%endif
 BuildRequires:	pam-devel
 BuildRequires:	pkgconfig(alsa)
 %if %{with faac}
@@ -67,7 +74,9 @@ BuildRequires:	pkgconfig(libusb-1.0)
 BuildRequires:	pkgconfig(libva)
 BuildRequires:	pkgconfig(OpenCL)
 BuildRequires:	pkgconfig(openh264)
+%if %{with openssl}
 BuildRequires:	pkgconfig(openssl)
+%endif
 BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(soxr)
@@ -91,6 +100,18 @@ BuildRequires:	pkgconfig(zlib)
 %description
 FreeRDP is a fork of the rdesktop project.
 
+%files
+%doc ChangeLog README.md
+%license LICENSE
+%{_bindir}/*
+%{_libdir}/%{name}*/
+%doc %{_mandir}/man1/xfreerdp.1.*
+%doc %{_mandir}/man1/freerdp-shadow-cli.1.*
+%doc %{_mandir}/man1/winpr-hash.1.*
+%doc %{_mandir}/man1/winpr-makecert.1.*
+%doc %{_mandir}/man1/wlfreerdp.1.*
+%doc %{_mandir}/man7/wlog.7.*
+
 #----------------------------------------------------
 
 %package -n %{libname}
@@ -102,6 +123,11 @@ Conflicts:	%{mklibname freerdp 1} < 1.2.0-5
 %description -n %{libname}
 Shared libraries for %{name}.
 
+%files -n %{libname}
+%{_libdir}/lib*%{name}*.so.%{major}*
+%{_libdir}/libwinpr*.so.%{winpr_major}*
+%{_libdir}/libuwac*.so.%{uwac_major}*
+
 #----------------------------------------------------
 
 %package -n %{develname}
@@ -112,6 +138,18 @@ Provides:	%{name}-devel = %{EVRD}
 
 %description -n %{develname}
 Development files and headers for %{name}.
+
+%files -n %{develname}
+%{_libdir}/*.so
+%{_includedir}/%{up_name}/
+%{_includedir}/winpr*/
+%{_includedir}/uwac*/
+%{_libdir}/pkgconfig/%{name}*.pc
+%{_libdir}/pkgconfig/winpr*.pc
+%{_libdir}/pkgconfig/uwac*.pc
+%{_libdir}/cmake/FreeRDP*/
+%{_libdir}/cmake/WinPR*/
+%{_libdir}/cmake/uwac*/
 
 #----------------------------------------------------
 
@@ -141,8 +179,8 @@ Development files and headers for %{name}.
 	-DWITH_MANPAGES:BOOL=ON \
 	-DWITH_OPENCL:BOOL=ON \
 	-DWITH_OPENH264:BOOL=ON \
-	-DWITH_OPENSSL:BOOL=ON \
-	-DWITH_MBEDTLS:BOOL=ON \
+	-DWITH_OPENSSL:BOOL=%{?with_openssl:ON}%{?!with_openssl:OFF} \
+	-DWITH_MBEDTLS:BOOL=%{?with_mbedtls:ON}%{?!with_mbedtls:OFF} \
 	-DWITH_PCSC:BOOL=ON \
 	-DWITH_PULSE:BOOL=ON \
 	-DWITH_SERVER:BOOL=ON -DWITH_SERVER_INTERFACE:BOOL=ON \
@@ -175,43 +213,13 @@ Development files and headers for %{name}.
 	-DWITH_NEON:BOOL=ON \
 %endif
 	-DCMAKE_INSTALL_LIBDIR:PATH=%{_lib} \
-	%{nil}
-
-%make_build
+	-G Ninja
+%ninja_build
 
 %install
-%make_install -C build
+%ninja_install -C build
 
 # we don't want these
 find %{buildroot} -name '*.la' -delete
 find %{buildroot} -name '*.a' -delete
-
-%files
-%doc ChangeLog README.md
-%license LICENSE
-%{_bindir}/*
-%{_libdir}/%{name}*/
-%doc %{_mandir}/man1/xfreerdp.1.*
-%doc %{_mandir}/man1/freerdp-shadow-cli.1.*
-%doc %{_mandir}/man1/winpr-hash.1.*
-%doc %{_mandir}/man1/winpr-makecert.1.*
-%doc %{_mandir}/man1/wlfreerdp.1.*
-%doc %{_mandir}/man7/wlog.7.*
-
-%files -n %{libname}
-%{_libdir}/lib*%{name}*.so.%{major}*
-%{_libdir}/libwinpr*.so.%{winpr_major}*
-%{_libdir}/libuwac*.so.%{uwac_major}*
-
-%files -n %{develname}
-%{_libdir}/*.so
-%{_includedir}/%{up_name}/
-%{_includedir}/winpr*/
-%{_includedir}/uwac*/
-%{_libdir}/pkgconfig/%{name}*.pc
-%{_libdir}/pkgconfig/winpr*.pc
-%{_libdir}/pkgconfig/uwac*.pc
-%{_libdir}/cmake/FreeRDP*/
-%{_libdir}/cmake/WinPR*/
-%{_libdir}/cmake/uwac*/
 
