@@ -37,6 +37,7 @@ Group:		Networking/Remote access
 Url:		http://www.freerdp.com/
 Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
 #Patch0:		openssl3.patch
+Patch1:		https://patch-diff.githubusercontent.com/raw/FreeRDP/FreeRDP/pull/8779.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	docbook-style-xsl
