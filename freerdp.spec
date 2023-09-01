@@ -1,3 +1,4 @@
+%global optflags %{optflags} -Wno-incompatible-function-pointer-types
 %global optflags %{optflags} -O2
 
 # "fix" underlinking:
