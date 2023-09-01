@@ -1,3 +1,4 @@
+%global optflags %{optflags} -Wno-incompatible-function-pointer-types
 %global optflags %{optflags} -O2
 
 # "fix" underlinking:
@@ -29,15 +30,13 @@
 %bcond_with	x264
 
 Name:		freerdp
-Version:	2.10.0
-Release:	3
+Version:	2.11.0
+Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
 Url:		http://www.freerdp.com/
 Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
-#Patch0:		openssl3.patch
-Patch1:		https://patch-diff.githubusercontent.com/raw/FreeRDP/FreeRDP/pull/8779.patch
 BuildRequires:	cmake
 BuildRequires:	ninja
 BuildRequires:	docbook-style-xsl
