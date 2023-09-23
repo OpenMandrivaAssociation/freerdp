@@ -30,12 +30,12 @@
 %bcond_with	x264
 
 Name:		freerdp
-Version:	2.11.0
+Version:	2.11.2
 Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
-Url:		http://www.freerdp.com/
+Url:		https://www.freerdp.com/
 Source0:	https://github.com/FreeRDP/FreeRDP/archive/%{tarballver}/%{oname}-%{tarballver}.tar.gz
 BuildRequires:	cmake
 BuildRequires:	ninja
