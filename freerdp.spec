@@ -71,6 +71,7 @@ BuildRequires:  pkgconfig(krb5) >= 1.13
 %endif
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libpcsclite)
+BuildRequires:	pkgconfig(libpkcs11-helper-1)
 BuildRequires:	pkgconfig(libpulse)
 BuildRequires:	pkgconfig(libusb-1.0)
 BuildRequires:	pkgconfig(libva)
