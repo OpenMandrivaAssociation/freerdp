@@ -58,6 +58,7 @@ BuildRequires:	pkgconfig(alsa)
 %if %{with faac}
 BuildRequires:	pkgconfig(faad2)
 %endif
+BuildRequires:	pkgconfig(fuse3)
 BuildRequires:	pkgconfig(gstreamer-1.0)
 BuildRequires:	pkgconfig(gstreamer-base-1.0)
 BuildRequires:	pkgconfig(gstreamer-app-1.0)
@@ -80,6 +81,7 @@ BuildRequires:	pkgconfig(openh264)
 %if %{with openssl}
 BuildRequires:	pkgconfig(openssl)
 %endif
+BuildRequires:	pkgconfig(opus)
 BuildRequires:	pkgconfig(pango)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(SDL2_ttf)
