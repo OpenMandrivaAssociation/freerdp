@@ -108,7 +108,6 @@ FreeRDP is a fork of the rdesktop project.
 %doc ChangeLog README.md
 %license LICENSE
 %{_bindir}/*
-%{_libdir}/%{name}*/
 %doc %{_mandir}/man1/sdl-freerdp.1.*
 %doc %{_mandir}/man1/xfreerdp.1.*
 %doc %{_mandir}/man1/freerdp-proxy.1.*
@@ -125,15 +124,16 @@ Summary:	Main library for %{name}
 Group:		System/Libraries
 # ease for update
 Conflicts:	%{mklibname freerdp 1} < 1.2.0-5
-Conflicts:	%{mklibname freerdp 2}
+Conflicts:	%{mklibname freerdp 2} < 2.11.5-1
 
 %description -n %{libname}
 Shared libraries for %{name}.
 
 %files -n %{libname}
+%{_libdir}/%{name}*/
 %{_libdir}/lib*%{name}*.so.%{major}*
 %{_libdir}/libwinpr*.so.%{winpr_major}*
-%{_libdir}/libuwac*.so.%{uwac_major}*
+#{_libdir}/libuwac*.so.%{uwac_major}*
 %{_libdir}/librdtk*.so.%{rdtk_major}*
 
 #----------------------------------------------------
@@ -152,15 +152,15 @@ Development files and headers for %{name}.
 %{_includedir}/%{up_name}/
 %{_includedir}/winpr*/
 %{_includedir}/rdtk*/
-%{_includedir}/uwac*/
+#{_includedir}/uwac*/
 %{_libdir}/pkgconfig/%{name}*.pc
 %{_libdir}/pkgconfig/winpr*.pc
-%{_libdir}/pkgconfig/uwac*.pc
+#{_libdir}/pkgconfig/uwac*.pc
 %{_libdir}/pkgconfig/rdtk*.pc
 %{_libdir}/cmake/FreeRDP*/
 %{_libdir}/cmake/WinPR*/
 %{_libdir}/cmake/rdtk*/
-%{_libdir}/cmake/uwac*/
+#{_libdir}/cmake/uwac*/
 
 #----------------------------------------------------
 
@@ -203,6 +203,7 @@ Development files and headers for %{name}.
 %else
 	-DWITH_SSE2:BOOL=OFF \
 %endif
+	-DUWAC_FORCE_STATIC_BUILD=ON \
 	-DWITH_WAYLAND:BOOL=ON \
 	-DWITH_WEBVIEW:BOOL=OFF \
 	-DWITH_VAAPI:BOOL=ON \
