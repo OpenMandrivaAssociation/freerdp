@@ -4,12 +4,14 @@
 # "fix" underlinking:
 %define _disable_ld_no_undefined 1
 
-%define up_name		freerdp2
+%define up_name		freerdp3
 
-%define winpr_major	2
+%define winpr_major	3
 %define uwac_major	0
-%define major		2
-%define libname		%mklibname %{name} %{major}
+%define major		3
+%define rdtk_major	0
+
+%define libname		%mklibname %{name}
 %define develname	%mklibname %{name} -d
 
 %define oname		FreeRDP
@@ -30,7 +32,7 @@
 %bcond_with	x264
 
 Name:		freerdp
-Version:	2.11.2
+Version:	3.4.0
 Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
@@ -78,6 +80,8 @@ BuildRequires:	pkgconfig(openh264)
 BuildRequires:	pkgconfig(openssl)
 %endif
 BuildRequires:	pkgconfig(pango)
+BuildRequires:	pkgconfig(sdl2)
+BuildRequires:	pkgconfig(SDL2_ttf)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(soxr)
 BuildRequires:	pkgconfig(systemd)
@@ -105,7 +109,9 @@ FreeRDP is a fork of the rdesktop project.
 %license LICENSE
 %{_bindir}/*
 %{_libdir}/%{name}*/
+%doc %{_mandir}/man1/sdl-freerdp.1.*
 %doc %{_mandir}/man1/xfreerdp.1.*
+%doc %{_mandir}/man1/freerdp-proxy.1.*
 %doc %{_mandir}/man1/freerdp-shadow-cli.1.*
 %doc %{_mandir}/man1/winpr-hash.1.*
 %doc %{_mandir}/man1/winpr-makecert.1.*
@@ -119,6 +125,7 @@ Summary:	Main library for %{name}
 Group:		System/Libraries
 # ease for update
 Conflicts:	%{mklibname freerdp 1} < 1.2.0-5
+Conflicts:	%{mklibname freerdp 2}
 
 %description -n %{libname}
 Shared libraries for %{name}.
@@ -127,6 +134,7 @@ Shared libraries for %{name}.
 %{_libdir}/lib*%{name}*.so.%{major}*
 %{_libdir}/libwinpr*.so.%{winpr_major}*
 %{_libdir}/libuwac*.so.%{uwac_major}*
+%{_libdir}/librdtk*.so.%{rdtk_major}*
 
 #----------------------------------------------------
 
@@ -143,12 +151,15 @@ Development files and headers for %{name}.
 %{_libdir}/*.so
 %{_includedir}/%{up_name}/
 %{_includedir}/winpr*/
+%{_includedir}/rdtk*/
 %{_includedir}/uwac*/
 %{_libdir}/pkgconfig/%{name}*.pc
 %{_libdir}/pkgconfig/winpr*.pc
 %{_libdir}/pkgconfig/uwac*.pc
+%{_libdir}/pkgconfig/rdtk*.pc
 %{_libdir}/cmake/FreeRDP*/
 %{_libdir}/cmake/WinPR*/
+%{_libdir}/cmake/rdtk*/
 %{_libdir}/cmake/uwac*/
 
 #----------------------------------------------------
@@ -183,6 +194,7 @@ Development files and headers for %{name}.
 	-DWITH_MBEDTLS:BOOL=%{?with_mbedtls:ON}%{?!with_mbedtls:OFF} \
 	-DWITH_PCSC:BOOL=ON \
 	-DWITH_PULSE:BOOL=ON \
+        -DWITH_SAMPLE:BOOL=OFF \
 	-DWITH_SERVER:BOOL=ON -DWITH_SERVER_INTERFACE:BOOL=ON \
 	-DWITH_SHADOW_X11:BOOL=ON -DWITH_SHADOW_MAC:BOOL=ON \
 	-DWITH_SOXR:BOOL=ON \
@@ -192,6 +204,7 @@ Development files and headers for %{name}.
 	-DWITH_SSE2:BOOL=OFF \
 %endif
 	-DWITH_WAYLAND:BOOL=ON \
+	-DWITH_WEBVIEW:BOOL=OFF \
 	-DWITH_VAAPI:BOOL=ON \
 	-DWITH_X264:BOOL=%{?with_x264:ON}%{?!with_x264:OFF} \
 	-DWITH_X11:BOOL=ON \
