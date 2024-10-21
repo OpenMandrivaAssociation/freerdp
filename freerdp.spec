@@ -70,6 +70,7 @@ BuildRequires:	pkgconfig(icu-i18n)
 %if %{with gss}
 BuildRequires:  pkgconfig(krb5) >= 1.13
 %endif
+BuildRequires:	pkgconfig(libcjson)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libpcsclite)
 BuildRequires:	pkgconfig(libpkcs11-helper-1)
