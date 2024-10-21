@@ -71,6 +71,7 @@ BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:  pkgconfig(krb5) >= 1.13
 %endif
 BuildRequires:	pkgconfig(libcjson)
+BuildRequires:	pkgconfig(json-c)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libpcsclite)
 BuildRequires:	pkgconfig(libpkcs11-helper-1)
