@@ -1,5 +1,6 @@
 %global optflags %{optflags} -Wno-incompatible-function-pointer-types
 %global optflags %{optflags} -O2
+%global __requires_exclude ^.*cmake.*$
 
 # "fix" underlinking:
 %define _disable_ld_no_undefined 1
@@ -32,8 +33,8 @@
 %bcond_with	x264
 
 Name:		freerdp
-Version:	3.10.2
-Release:	3
+Version:	3.14.0
+Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
@@ -67,6 +68,7 @@ BuildRequires:	pkgconfig(gstreamer-fft-1.0)
 BuildRequires:	pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:	pkgconfig(gstreamer-video-1.0)
 BuildRequires:	pkgconfig(icu-i18n)
+BuildRequires:	cmake(json-c)
 %if %{with gss}
 BuildRequires:  pkgconfig(krb5) >= 1.13
 %endif
@@ -88,6 +90,7 @@ BuildRequires:	pkgconfig(SDL2_ttf)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(soxr)
 BuildRequires:	pkgconfig(systemd)
+BuildRequires:  (cmake(uriparser) and uriparser-devel)
 BuildRequires:	pkgconfig(wayland-client)
 BuildRequires:	pkgconfig(wayland-scanner)
 %if %{with x264}
@@ -186,6 +189,7 @@ Development files and headers for %{name}.
 	-DWITH_GSSAPI:BOOL=%{?_with_gss:ON}%{?!_with_gss:OFF} \
 	-DWITH_GSTREAMER_1_0:BOOL=ON -DWITH_GSTREAMER_0_10:BOOL=OFF \
 	-DGSTREAMER_1_0_INCLUDE_DIRS=%{_includedir}/gstreamer-1.0 \
+        -DWITH_JSONC_REQUIRED=ON \
 	-DWITH_ICU:BOOL=ON \
 	-DWITH_IPP:BOOL=OFF \
 	-DWITH_JPEG:BOOL=ON \
@@ -202,9 +206,9 @@ Development files and headers for %{name}.
 	-DWITH_SHADOW_X11:BOOL=ON -DWITH_SHADOW_MAC:BOOL=ON \
 	-DWITH_SOXR:BOOL=ON \
 %ifarch %{x86_64}
-	-DWITH_SSE2:BOOL=ON \
+	-DWITH_SIMD:BOOL=ON \
 %else
-	-DWITH_SSE2:BOOL=OFF \
+	-DWITH_SIMD:BOOL=OFF \
 %endif
 	-DUWAC_FORCE_STATIC_BUILD=ON \
 	-DWITH_WAYLAND:BOOL=ON \
