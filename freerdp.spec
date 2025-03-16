@@ -90,7 +90,7 @@ BuildRequires:	pkgconfig(SDL2_ttf)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(soxr)
 BuildRequires:	pkgconfig(systemd)
-BuildRequires:  (cmake(uriparser) and uriparser-devel)
+#BuildRequires:  (cmake(uriparser) and uriparser-devel)
 BuildRequires:	pkgconfig(wayland-client)
 BuildRequires:	pkgconfig(wayland-scanner)
 %if %{with x264}
