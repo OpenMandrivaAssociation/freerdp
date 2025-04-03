@@ -33,8 +33,8 @@
 %bcond_with	x264
 
 Name:		freerdp
-Version:	3.14.0
-Release:	2
+Version:	3.14.1
+Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
