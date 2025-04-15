@@ -19,10 +19,6 @@
 %define tarballver	%{version}
 %define tarballdir	v%{version}
 
-# Momentarily disable GSS support
-# https://github.com/FreeRDP/FreeRDP/issues/4348
-%bcond_with	gss
-
 # Use only one of this
 %bcond_with	mbedtls
 %bcond_without	openssl
@@ -33,7 +29,7 @@
 %bcond_with	x264
 
 Name:		freerdp
-Version:	3.14.1
+Version:	3.15.0
 Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
@@ -69,9 +65,8 @@ BuildRequires:	pkgconfig(gstreamer-pbutils-1.0)
 BuildRequires:	pkgconfig(gstreamer-video-1.0)
 BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	cmake(json-c)
-%if %{with gss}
-BuildRequires:  pkgconfig(krb5) >= 1.13
-%endif
+BuildRequires:  pkgconfig(krb5)
+BuildRequires:  pkgconfig(libcjson)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libpcsclite)
 BuildRequires:	pkgconfig(libpkcs11-helper-1)
@@ -85,12 +80,13 @@ BuildRequires:	pkgconfig(openssl)
 %endif
 BuildRequires:	pkgconfig(opus)
 BuildRequires:	pkgconfig(pango)
+#BuildRequires:	pkgconfig(sdl3)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(SDL2_ttf)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(soxr)
 BuildRequires:	pkgconfig(systemd)
-#BuildRequires:  (cmake(uriparser) and uriparser-devel)
+BuildRequires:  pkgconfig(liburiparser)
 BuildRequires:	pkgconfig(wayland-client)
 BuildRequires:	pkgconfig(wayland-scanner)
 %if %{with x264}
@@ -171,11 +167,10 @@ Development files and headers for %{name}.
 #----------------------------------------------------
 
 %prep
-%setup -qn FreeRDP-%{tarballver}
-%autopatch -p1
+%autosetup -p1 -n FreeRDP-%{tarballver}
 
 %build
-%cmake \
+%cmake -Wno-dev \
 	-DWITH_ALSA:BOOL=ON \
 	-DWITH_CUPS:BOOL=ON \
 	-DWITH_CHANNELS:BOOL=ON \
@@ -186,7 +181,7 @@ Development files and headers for %{name}.
 	-DWITH_FAAD2:BOOL=%{?with_faad:ON}%{?!with_faad:OFF} \
 	-DWITH_FFMPEG:BOOL=ON \
 	-DWITH_GSM:BOOL=ON \
-	-DWITH_GSSAPI:BOOL=%{?_with_gss:ON}%{?!_with_gss:OFF} \
+	-DWITH_GSSAPI:BOOL=ON \
 	-DWITH_GSTREAMER_1_0:BOOL=ON -DWITH_GSTREAMER_0_10:BOOL=OFF \
 	-DGSTREAMER_1_0_INCLUDE_DIRS=%{_includedir}/gstreamer-1.0 \
         -DWITH_JSONC_REQUIRED=ON \
