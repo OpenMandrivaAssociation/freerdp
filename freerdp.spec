@@ -29,7 +29,7 @@
 %bcond_with	x264
 
 Name:		freerdp
-Version:	3.18.0
+Version:	3.19.0
 Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
@@ -80,9 +80,10 @@ BuildRequires:	pkgconfig(openssl)
 %endif
 BuildRequires:	pkgconfig(opus)
 BuildRequires:	pkgconfig(pango)
-#BuildRequires:	pkgconfig(sdl3)
 BuildRequires:	pkgconfig(sdl2)
 BuildRequires:	pkgconfig(SDL2_ttf)
+BuildRequires:	pkgconfig(sdl3)
+BuildRequires:	cmake(SDL3_ttf)
 BuildRequires:	pkgconfig(sox)
 BuildRequires:	pkgconfig(soxr)
 BuildRequires:	pkgconfig(systemd)
@@ -110,14 +111,15 @@ FreeRDP is a fork of the rdesktop project.
 %doc ChangeLog README.md
 %license LICENSE
 %{_bindir}/*
-%doc %{_mandir}/man1/sdl-freerdp.1.*
-%doc %{_mandir}/man1/xfreerdp.1.*
-%doc %{_mandir}/man1/freerdp-proxy.1.*
-%doc %{_mandir}/man1/freerdp-shadow-cli.1.*
-%doc %{_mandir}/man1/winpr-hash.1.*
-%doc %{_mandir}/man1/winpr-makecert.1.*
-%doc %{_mandir}/man1/wlfreerdp.1.*
-%doc %{_mandir}/man7/wlog.7.*
+%doc %{_mandir}/man1/xfreerdp.1*
+%doc %{_mandir}/man1/sdl2-freerdp.1*
+%doc %{_mandir}/man1/sdl3-freerdp.1*
+%doc %{_mandir}/man1/freerdp-proxy.1*
+%doc %{_mandir}/man1/freerdp-shadow-cli.1*
+%doc %{_mandir}/man1/winpr-hash.1*
+%doc %{_mandir}/man1/winpr-makecert.1*
+%doc %{_mandir}/man1/wlfreerdp.1*
+%doc %{_mandir}/man7/wlog.7*
 
 #----------------------------------------------------
 
