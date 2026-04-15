@@ -155,15 +155,12 @@ Development files and headers for %{name}.
 %{_libdir}/*.so
 %{_includedir}/%{up_name}/
 %{_includedir}/winpr*/
-%{_includedir}/rdtk*/
 #{_includedir}/uwac*/
 %{_libdir}/pkgconfig/%{name}*.pc
 %{_libdir}/pkgconfig/winpr*.pc
 #{_libdir}/pkgconfig/uwac*.pc
-%{_libdir}/pkgconfig/rdtk*.pc
 %{_libdir}/cmake/FreeRDP*/
 %{_libdir}/cmake/WinPR*/
-%{_libdir}/cmake/rdtk*/
 #{_libdir}/cmake/uwac*/
 
 #----------------------------------------------------
