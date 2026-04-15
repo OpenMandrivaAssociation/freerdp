@@ -138,7 +138,7 @@ Shared libraries for %{name}.
 %{_libdir}/lib*%{name}*.so.%{major}*
 %{_libdir}/libwinpr*.so.%{winpr_major}*
 #{_libdir}/libuwac*.so.%{uwac_major}*
-%{_libdir}/librdtk*.so.%{rdtk_major}*
+#{_libdir}/librdtk*.so.%{rdtk_major}*
 
 #----------------------------------------------------
 
