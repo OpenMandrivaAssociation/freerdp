@@ -29,7 +29,7 @@
 %bcond_with	x264
 
 Name:		freerdp
-Version:	3.28.0
+Version:	3.30.0
 Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
@@ -166,7 +166,7 @@ Development files and headers for %{name}.
 #----------------------------------------------------
 
 %prep
-%autosetup -p1 -n FreeRDP-%{tarballver}
+%autosetup -p1 -n FreeRDP-3.30.0
 
 %build
 %cmake -Wno-dev \
