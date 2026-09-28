@@ -166,7 +166,7 @@ Development files and headers for %{name}.
 #----------------------------------------------------
 
 %prep
-%autosetup -p1 -n FreeRDP-3.30.0
+%autosetup -p1 -n FreeRDP-%{tarballver}
 
 %build
 %cmake -Wno-dev \
