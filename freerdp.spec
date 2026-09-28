@@ -119,6 +119,7 @@ FreeRDP is a fork of the rdesktop project.
 %doc %{_mandir}/man1/winpr-hash.1*
 %doc %{_mandir}/man1/winpr-makecert.1*
 %doc %{_mandir}/man1/wlfreerdp.1*
+%doc %{_mandir}/man7/freerdp.7*
 %doc %{_mandir}/man7/wlog.7*
 
 #----------------------------------------------------
