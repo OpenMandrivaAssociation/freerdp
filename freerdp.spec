@@ -29,8 +29,8 @@
 %bcond_with	x264
 
 Name:		freerdp
-Version:	3.32.1
-Release:	3
+Version:	3.33.0
+Release:	1
 Summary:	A free remote desktop protocol client
 License:	Apache License
 Group:		Networking/Remote access
@@ -67,6 +67,8 @@ BuildRequires:	pkgconfig(icu-i18n)
 BuildRequires:	cmake(json-c)
 BuildRequires:  pkgconfig(krb5)
 BuildRequires:  pkgconfig(libcjson)
+BuildRequires:	pkgconfig(libcbor)
+BuildRequires:	pkgconfig(libfido2)
 BuildRequires:	pkgconfig(libjpeg)
 BuildRequires:	pkgconfig(libpcsclite)
 BuildRequires:	pkgconfig(libpkcs11-helper-1)
